@@ -1,6 +1,8 @@
 name: CI practice
 
 on: 
+    schedule:
+        - cron: '*/5 * * * *'
     push:
         branches:
             - main
@@ -12,6 +14,16 @@ on:
             - main
         paths-ignore:
             - "**.md"
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Куда деплоить"
+                type: choice
+                options:
+                    - dev 
+                    - prod
+                default: dev 
+
 
 jobs:
     python-app:
@@ -22,4 +34,7 @@ jobs:
               with: 
                 python-version: '3.12'
                 cache: 'pip'
+            - run: echo "event=${{ github.event_name }} ref=${{ github.ref }}"
+            - run: |
+                echo "Окружение: ${{ inputs.environment }}"
             - run: pip install -r requirements.txt
