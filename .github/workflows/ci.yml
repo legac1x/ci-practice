@@ -35,4 +35,6 @@ jobs:
                 python-version: '3.12'
                 cache: 'pip'
             - run: echo "event=${{ github.event_name }} ref=${{ github.ref }}"
+            - run: |
+                echo "Окружение: ${{ inputs.environment }}"
             - run: pip install -r requirements.txt
