@@ -1,17 +1,16 @@
-name: CI 
+name: Hello
 
-on: pull_request
-
-concurrency:
-    group: demo-${{ github.workflow }}-${{ github.event.pull_request.number }}
-    cancel-in-progress: true
+on: 
+    push:
+        branches:
+            - main
 
 jobs:
-    test:
+    greet:
         runs-on: ubuntu-latest
 
         timeout-minutes: 5
 
         steps:
-            - name: Simulate
-              run: sleep 60
+            - uses: actions/checkout@v4
+            - run: echo "Hello, GitHub Actions!"
