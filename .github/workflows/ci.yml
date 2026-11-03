@@ -1,13 +1,19 @@
-name: Hello
+name: Variables
 
 on: 
-    push:
-        branches:
-            - main
+    workflow_dispatch
+
+env:
+    MESSAGE: Hello
 
 jobs:
-    greet:
+    show:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
-            - run: echo "Hello, GitHub Actions!"
+            - name: First
+              run: echo "$MESSAGE"
+
+            - name: Second
+              run: echo "$MESSAGE"
+              env:
+                MESSAGE: Bye
