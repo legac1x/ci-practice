@@ -8,6 +8,9 @@ on:
 jobs:
     greet:
         runs-on: ubuntu-latest
+
+        timeout-minutes: 5
+
         steps:
             - uses: actions/checkout@v4
             - run: echo "Hello, GitHub Actions!"
