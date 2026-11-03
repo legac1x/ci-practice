@@ -20,4 +20,4 @@ def test():
 
 @app.get("/test-rulset")
 def rulset_def():
-    return {"message": "rulset_def2"}
+    return {"message": "rulsasdfafasfet_def2"}
