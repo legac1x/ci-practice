@@ -15,7 +15,7 @@ def health():
 
 @app.get("/test")
 def test():
-    return {"m fdsafafasfaessage": "test"}
+    return {"m fdsafafasadfafaessage": "test"}
 
 
 @app.get("/test-rulset")
