@@ -14,4 +14,4 @@ jobs:
 
         steps:
             - name: Simulate
-              run: sleep 60t 
+              run: sleep 60
