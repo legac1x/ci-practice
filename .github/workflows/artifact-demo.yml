@@ -23,6 +23,7 @@ jobs:
           run: pytest test_main.py --doctest-modules --junitxml=junit/test-results-3.12.xml
           
         - name: Uploaded results
+          if: ${{ always() }}
           uses: actions/upload-artifact@v4
           with:
             name: pytest-report
