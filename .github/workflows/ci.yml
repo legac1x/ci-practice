@@ -1,17 +1,14 @@
-name: CI 
+name: Timeout Demo
 
-on: [push, pull_request]
-
-concurrency:
-    group: demo-${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+on: 
+    push:
+        branches:
+            - feature/timeout
 
 jobs:
-    test:
+    slow-test:
         runs-on: ubuntu-latest
-
-        timeout-minutes: 5
-
+        timeout-minutes: 1
         steps:
-            - name: Simulate
-              run: sleep 60
+          - name: Simulate timeout 
+            run: sleep 180
