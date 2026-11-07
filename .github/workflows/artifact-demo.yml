@@ -27,7 +27,7 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: pytest-report
-            path: test-results-3.12.xml
+            path: junit/test-results-3.12.xml
 
   
   report:
@@ -37,6 +37,7 @@ jobs:
     steps: 
       - uses: actions/download-artifact@v4
         with:
+          if-no-files-found: error
           name: pytest-report
 
       - name: Create report 
