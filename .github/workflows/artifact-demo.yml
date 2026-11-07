@@ -42,6 +42,8 @@ jobs:
       - name: Create report 
         run: |
           echo "## Build report" >> $GITHUB_STEP_SUMMARY
+          pwd
+          ls -R
           cat junit/test-results-3.12.xml
           echo "## Pytest Report" >> $GITHUB_STEP_SUMMARY
           echo "JUnit XML report: junit/test-results-3.12.xml" >> $GITHUB_STEP_SUMMARY
