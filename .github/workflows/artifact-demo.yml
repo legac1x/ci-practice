@@ -1,3 +1,4 @@
+
 name: Artefact Task
 
 on: 
@@ -18,7 +19,6 @@ jobs:
           run: |
             python -m pip install --upgrade pip
             pip install -r requirements.txt
-
         - name: Test with pytest
           run: pytest test_main.py --doctest-modules --junitxml=junit/test-results-3.12.xml
           
@@ -28,5 +28,25 @@ jobs:
           with:
             name: pytest-report
             path: junit/test-results-3.12.xml
-          
 
+  
+  report:
+    if: ${{ always() }}
+    needs: artefact-demo
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/download-artifact@v4
+        with:
+          name: pytest-report
+
+      - name: Create report 
+        run: |
+          echo "## Build report" >> $GITHUB_STEP_SUMMARY
+          cat junit/test-results-3.12.xml
+          echo "## Pytest Report" >> $GITHUB_STEP_SUMMARY
+          echo "JUnit XML report: junit/test-results-3.12.xml" >> $GITHUB_STEP_SUMMARY
+
+      - name: Inspect dowlnoad directory
+        run: |
+          pwd
+          ls -R
