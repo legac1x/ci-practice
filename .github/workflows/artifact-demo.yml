@@ -26,28 +26,19 @@ jobs:
           if: ${{ always() }}
           uses: actions/upload-artifact@v4
           with:
+            if-no-files-found: error
             name: pytest-report
             path: junit/test-results-3.12.xml
 
-  
   report:
     if: ${{ always() }}
     needs: artefact-demo
     runs-on: ubuntu-latest
     steps: 
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          if-no-files-found: error
           name: pytest-report
 
       - name: Create report 
-        run: |
-          echo "## Build report" >> $GITHUB_STEP_SUMMARY
-          cat test-results-3.12.xml
-          echo "## Pytest Report" >> $GITHUB_STEP_SUMMARY
-          echo "JUnit XML report: junit/test-results-3.12.xml" >> $GITHUB_STEP_SUMMARY
-
-      - name: Inspect dowlnoad directory
-        run: |
-          pwd
-          ls -R
+        run: python parser-xml.py
