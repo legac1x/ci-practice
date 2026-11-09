@@ -1,0 +1,16 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - "v*"
+
+
+jobs:
+    release-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print log
+              run: |
+                echo "Ref: $GITHUB_REF"
+                echo "Tag: $GITHUB_REF_NAME"
