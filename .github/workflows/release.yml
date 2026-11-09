@@ -9,7 +9,15 @@ jobs:
     release-check:
         runs-on: ubuntu-latest
         steps:
-            - name: Print log
-              run: |
-                echo "Ref: $GITHUB_REF"
-                echo "Tag: $GITHUB_REF_NAME"
+          - name: Checkout Repository
+            uses: actions/checkout@v4
+
+          - name: Set up docker buildx
+            uses: docker/setup-buildx-action@v4
+
+          - name: Build docker-container
+            uses: docker/build-push-action@v7
+            with:
+              context: .
+              push: false
+              tags: ci-practice:dev
