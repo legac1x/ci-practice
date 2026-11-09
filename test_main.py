@@ -15,4 +15,4 @@ def test_root_returns_greeting():
 def test_health_reports_healthy_status():
     response = client.get("/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "healthy"}
+    assert response.json() == {"status": "ok"}
