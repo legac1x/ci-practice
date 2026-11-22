@@ -45,8 +45,8 @@ jobs:
           env: 
             SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
             SSH_KNOWN_HOST: ${{ vars.DEPLOY_KNOWN_HOSTS }}
-            SSH_HOST: ${{ vars.SSH_HOST }}
-            SSH_USER: ${{ vars.SSH_USER }}
+            SSH_HOST: ${{ vars.DEPLOY_HOST }}
+            SSH_USER: ${{ vars.DEPLOY_USER }}
             GITHUB_TAG: ${{ github.ref_name }}
           run: |
               mkdir -p ~/.ssh
