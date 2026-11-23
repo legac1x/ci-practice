@@ -24,13 +24,25 @@ jobs:
               registry: ghcr.io
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }}
+
           - name: Build docker-container
             uses: docker/build-push-action@v7
-            with:
+            with: 
               context: .
-              push: true 
-              tags: ghcr.io/${{ github.repository_owner }}/ci-practice:${{ github.ref_name }}
+              load: true 
+              tags: ghcr.io/${{ github.repository_owner }}/ci-practice:${{ github.ref_name }}      
+
+          - name: Run Trivy Scanner
+            uses: aquasecurity/trivy-action@v0.36.0
+            with:
+              image-ref: 'ghcr.io/${{ github.repository_owner }}/ci-practice:${{ github.ref_name }}'
+              severity: 'CRITICAL'
+              scanners: 'vuln'
+              exit-code: 1
           
+          - name: Push docker image
+            run: docker push ghcr.io/${{ github.repository_owner }}/ci-practice:${{ github.ref_name }} 
+
     deploy:
       needs: release-check 
       runs-on: ubuntu-latest
@@ -62,4 +74,3 @@ jobs:
               fi              
               ssh -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -i ~/.ssh/deploy_key "$SSH_USER"@"$SSH_HOST" \
               "sudo -n /usr/local/sbin/deploy-ci-practice '$GITHUB_TAG'"
-              
