@@ -30,7 +30,6 @@ jobs:
               context: .
               push: true 
               tags: ghcr.io/${{ github.repository_owner }}/ci-practice:${{ github.ref_name }}
-
           
     deploy:
       needs: release-check 
@@ -38,7 +37,7 @@ jobs:
       environment: production
       permissions: {}
       concurrency:
-        group: production-deploy 
+        group: production-deploy
         cancel-in-progress: false 
       steps:
         - name: Configure SSH 
@@ -63,3 +62,4 @@ jobs:
               fi              
               ssh -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -i ~/.ssh/deploy_key "$SSH_USER"@"$SSH_HOST" \
               "sudo -n /usr/local/sbin/deploy-ci-practice '$GITHUB_TAG'"
+              
