@@ -6,7 +6,29 @@ on:
             - "v*"
 
 jobs:
+    quiality:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repositry
+              uses: actions/checkout@v4
+
+            - name: Setup Python 
+              uses: acitons/setup-python@v6
+              with:
+                python-version: '3.12'
+                cache: 'pi'
+            
+            - name: Install Dependencies
+              run: python -m pip insatll --upgrade pip
+
+            - name: Check style by ruff
+              run: ruff check main.py test_main.py
+            
+            - name: Check unit tests
+              run: python -m pytest -v
+
     release-check:
+        needs: quiality
         runs-on: ubuntu-latest
         permissions:
           contents: read
