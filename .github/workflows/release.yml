@@ -36,7 +36,7 @@ jobs:
             uses: aquasecurity/trivy-action@v0.36.0
             with:
               image-ref: 'ghcr.io/${{ github.repository_owner }}/ci-practice:${{ github.ref_name }}'
-              severity: 'CRITICAL'
+              severity: 'HIGH,CRITICAL'
               scanners: 'vuln'
               exit-code: 1
           
