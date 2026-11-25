@@ -6,20 +6,20 @@ on:
             - "v*"
 
 jobs:
-    quiality:
+    quality:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Repositry
+            - name: Checkout Repository
               uses: actions/checkout@v4
 
             - name: Setup Python 
               uses: actions/setup-python@v6
               with:
                 python-version: '3.12'
-                cache: 'pi'
+                cache: 'pip'
             
             - name: Install Dependencies
-              run: python -m pip insatll --upgrade pip
+              run: python -m pip install --upgrade pip
 
             - name: Check style by ruff
               run: ruff check main.py test_main.py
@@ -28,7 +28,7 @@ jobs:
               run: python -m pytest -v
 
     release-check:
-        needs: quiality
+        needs: quality
         runs-on: ubuntu-latest
         permissions:
           contents: read
