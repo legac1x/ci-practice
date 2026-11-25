@@ -8,6 +8,12 @@ on:
 jobs:
     quality:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        strategy:
+            matrix:
+                python-version: ['3.11', '3.12']
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -15,7 +21,7 @@ jobs:
             - name: Setup Python 
               uses: actions/setup-python@v6
               with:
-                python-version: '3.12'
+                python-version: ${{ matrix.python-version }}
                 cache: 'pip'
             
             - name: Install Dependencies
