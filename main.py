@@ -18,10 +18,6 @@ def test():
     return {"message": "test"}
 
 
-@app.get("/test-rulset")
-def rulset_def():
-    return {"message": "rulsasdfafasfet_def2"}
-
 @app.get("/test-concurrency")
 def rulset_def():
     return {"message": "test- tconcurrency"}
